@@ -1,7 +1,9 @@
-some_var = "false"
-another_var = "nil"
+some_var = false
+another_var = nil
+pink_var = "pink elephant"
+
 case
-when some_var == "pink elephant" # fails because the var does not equal "pink elephant"
+when pink_var == "pink elephant" # fails because the var does not equal "pink elephant"
     puts "Don't think about the pink elephant!"
   when another_var.nil? # fails because the var does not equal nil, to fix, remove quotes
     puts "Question mark in the method name?"
