@@ -1,39 +1,49 @@
-class Car
-  attr_reader :year
-  attr_accessor :color,:tires,:interior_color
-
-  def self.car_counter
-    @@cars_created ||= 0
-    @@cars_created += 1
-    puts "You've created #{@@cars_created} cars."
+module Vehicle
+  def vehicle_status # Displays current car status
+    puts "Your #{@type} currently is #{@color}."
+    puts "Your #{@type} currently has #{@tires} tires."
+    puts "The inside of your #{@type} currently is #{@interior_color}."
+    puts "Your #{@type}'s year is #{@year}."
   end
 
-  def initialize
-    @color = "metal"
-    @tires = 0
-    @interior_color = "metal"
-    self.car_status
-    self.setup
-    self.car_counter
-  end
-
-  def year (year_model)
+  def year_set
+    puts "What year model is your #{@type}?"
+    year_model = gets.chomp.to_i
     @year ||= "unknown"
     @year = year_model unless year_model > 2019
   end
 
   def setup
-    puts "What year model is your car?"
-    car_year = gets.chomp.to_i
-      self.year car_year
-    puts "Would you like to change anything about your car?"
-    car_change = gets.chomp.downcase
-
+    puts "Would you like to change anything about your #{@type}?"
+    change_request = gets.chomp.downcase
     case
-    when car_change.downcase == "yes"
+    when change_request.downcase == "yes"
       self.changes
-    when car_change.downcase == "no"
+    when change_request.downcase == "no"
     end
+  end
+end
+
+class Car
+  attr_reader :year
+  attr_accessor :type, :color,:tires,:interior_color
+  include Vehicle
+
+  def initialize
+    @color = "metal"
+    @tires = 0
+    @interior_color = "metal"
+    @type = "car"
+    self.year_set
+    self.vehicle_status
+    self.setup
+    self.car_counter
+  end
+
+  def car_counter
+    @@cars_created ||= 0
+    @@cars_created += 1
+    puts "You've created #{@@cars_created} cars."
   end
 
   def changes # Changing car attributes
@@ -43,7 +53,7 @@ class Car
 
     case
     when car_change == "tires"
-      puts "Your car has #{@tires} tires."
+      puts "Your #{@type} has #{@tires} tires."
       if @tires < 4
         puts "That's too few tires, let's add one."
         @tires += 1
@@ -53,28 +63,23 @@ class Car
         puts "That's an awkward number of tires."
       end
     when car_change == "color"
-      puts "Your car is currently #{@color}."
+      puts "Your #{@type} is currently #{@color}."
       puts "What color would you like it to be?"
       new_color = gets.chomp.downcase
       @color = new_color
     when car_change == "interior"
-      puts "Your car's interior is currently #{@interior_color}."
+      puts "Your #{@type}'s interior is currently #{@interior_color}."
       puts "What color would you like it to be?"
       new_color = gets.chomp.downcase
       @interior_color = new_color
     end
 
-    self.car_status
+    self.vehicle_status
     self.setup
   end
 
-  def car_status # Displays current car status
-    puts "Your car currently is #{@color}."
-    puts "Your car currently has #{@tires} tires."
-    puts "The inside of your car currently is #{@interior_color}."
-    puts "Your car's year is #{@year}."
-  end
 end
+
 
 car1 = Car.new
 car2 = Car.new
