@@ -11,10 +11,15 @@ class Car
   end
 
   def year= (year_model)
+    @year ||=2019
     @year = year_model unless year_model > 2019
   end
 
   def setup
+    puts "What year model is your car?"
+    car_year = gets.chomp.to_i
+      self.year = car_year
+      self.car_status
     puts "Would you like to change anything about your car?"
     car_change = gets.chomp.downcase
     case
