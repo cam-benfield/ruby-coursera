@@ -2,31 +2,37 @@ class Car
   attr_reader :year
   attr_accessor :color,:tires,:interior_color
 
-  def initialize (yearVar)
+  def self.car_counter
+    @@cars_created ||= 0
+    @@cars_created += 1
+    puts "You've created #{@@cars_created} cars."
+  end
+
+  def initialize
     @color = "metal"
     @tires = 0
     @interior_color = "metal"
-    self.year = yearVar
     self.car_status
+    self.setup
+    self.car_counter
   end
 
-  def year= (year_model)
-    @year ||=2019
+  def year (year_model)
+    @year ||= "unknown"
     @year = year_model unless year_model > 2019
   end
 
   def setup
     puts "What year model is your car?"
     car_year = gets.chomp.to_i
-      self.year = car_year
-      self.car_status
+      self.year car_year
     puts "Would you like to change anything about your car?"
     car_change = gets.chomp.downcase
+
     case
     when car_change.downcase == "yes"
       self.changes
     when car_change.downcase == "no"
-      self.car_status
     end
   end
 
@@ -34,6 +40,7 @@ class Car
     puts "What would you like to change?"
     puts "Tires, color, or interior?"
     car_change = gets.chomp.downcase
+
     case
     when car_change == "tires"
       puts "Your car has #{@tires} tires."
@@ -56,11 +63,12 @@ class Car
       new_color = gets.chomp.downcase
       @interior_color = new_color
     end
+
     self.car_status
     self.setup
   end
 
-  def car_status
+  def car_status # Displays current car status
     puts "Your car currently is #{@color}."
     puts "Your car currently has #{@tires} tires."
     puts "The inside of your car currently is #{@interior_color}."
@@ -68,5 +76,5 @@ class Car
   end
 end
 
-car1 = Car.new(2019)
-car1.setup
+car1 = Car.new
+car2 = Car.new
