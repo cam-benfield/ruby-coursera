@@ -4,13 +4,10 @@ class Car
 
   def initialize (yearVar)
     @color = "metal"
-    puts "Your car currently is #{@color}."
     @tires = 0
-    puts "Your car currently has #{@tires} tires."
     @interior_color = "metal"
-    puts "The inside of your car currently is #{@interior_color}."
     self.year = yearVar
-    puts "Your car's year is #{@year}."
+    self.car_status
   end
 
   def year= (year_model)
