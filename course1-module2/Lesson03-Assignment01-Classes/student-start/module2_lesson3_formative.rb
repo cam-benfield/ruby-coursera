@@ -1,24 +1,20 @@
 class Person
   #have a first_name and last_name attribute with public accessors
-  attr_accessor :first_name, :last_name
+  #attr_accessor
+
   #have a class attribute called `people` that holds an array of objects
   @@people = []
 
   #have an `initialize` method to initialize each instance
-  def initialize(first_var, last_var)
-    #should take 2 parameters for first_name and last_name
+  def initialize(x,y)#should take 2 parameters for first_name and last_name
     #assign those parameters to instance variables
-    @first_name = first_var
-    @last_name = last_var
     #add the created instance (self) to people class variable
-    @@people.push( [first_var, last_var] )
   end
 
   #have a `search` method to locate all people with a matching `last_name`
-  def self.search(last_var)
+  def self.search(last_name)
     #accept a `last_name` parameter
     #search the `people` class attribute for instances with the same `last_name`
-    @@people.select(last_var)
     #return a collection of matching instances
   end
 
